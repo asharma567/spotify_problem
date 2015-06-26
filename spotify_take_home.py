@@ -7,6 +7,17 @@ import string
 
 PUNC_SET = set(string.punctuation)
 
+spotify_obj = spotipy.Spotify()
+work_function = lambda x: search_spotify(x, spotify_obj)
+
+def query_all_possibilities_parallelized(query_str_list):
+    output = []
+    with ThreadPoolExecutor(max_workers=5) as executor:
+        for query_str in query_str_list:
+            future = executor.submit(work_function, query_str)
+            output.append(future)
+    return map(lambda x: x.result(), output)
+
 def normalize_string(target_str):
     removed_punc_str = ''.join([char for char in target_str if char not in PUNC_SET])
     return removed_punc_str.lower()
@@ -53,6 +64,8 @@ def search_through_results(target_n_gram, results_dict):
             stor.append(str(item['name'] + ' by ' + item['artists'][0]['name']))
             
     return stor
+
+
 
 def find_optimal(loop_lis, original_input_str):
     output = []
