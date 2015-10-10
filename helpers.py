@@ -3,11 +3,15 @@ utility functions for playlist maker
 '''
 
 import string 
-
-
 PUNC_SET = set(string.punctuation)
 
 def memoize(fn):
+    '''
+    I: function with args 
+    O: creates a hash table with the args
+
+    a general decorator used for caching can be applied to any function
+    '''
     stored_results = {}
     def memoized(*args):
         try:
@@ -22,8 +26,10 @@ def memoize(fn):
 
 def make_verbose(fn):
     '''
-    used for debugging purposes 
-    to take note of args being 
+    I: function with args
+    O: print of function call with args
+    
+    used for debugging purposes to take note of args being 
     passed the function each call
     '''
 
