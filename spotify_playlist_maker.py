@@ -64,7 +64,8 @@ class spotify_playlist_maker(object):
         
         #unpacks the result 
         lis = map(lambda x: x.result(), output)
-        #unpacking
+        
+        #unpacking 
         return [item for sublist in lis for item in sublist if item]         
 
     @deadline(120)
