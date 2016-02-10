@@ -5,6 +5,9 @@ I wrote in efforts to helpout a friend with an take-home from Spotify. I also th
 Namely--
 - threadpooling
 - deadlining
-- the word break problem
+- the word-break problem
+- the coin-change problem
 - memoizing
 etc...
+
+Now I'm trying solve the problem differently by applying the word-break algorithm 
