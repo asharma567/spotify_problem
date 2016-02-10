@@ -3,12 +3,13 @@ from helpers import memoize
 from helpers import make_verbose
 from helpers import pop_from_str
 from helpers import normalize_string
+from helpers import deadline
 from concurrent.futures import ThreadPoolExecutor
 import spotipy
 
 '''
 To dos --
-    - it would be nice to pickle the memoized api calls, so that searches don't have to ever be repeated
+    - Pickle the memoized api calls, so that searches don't have to ever be repeated
     - write a flask app to serve this script, use bootstrap for the front end to make it look cool
     - write a more efficient algo specifically: break prematurely if it finds an ngram combo that's 
         optimal without going through the entire search space
@@ -54,7 +55,9 @@ class spotify_playlist_maker(object):
         '''
         output = []
         with ThreadPoolExecutor(max_workers) as executor:
-            for n in range(len(input_str.split()))[::-1]: #change to xrange
+            total_number_of_words = len(input_str.split())
+            for n in xrange(total_number_of_words, -1, -1):
+            # for n in range(len(input_str.split()))[::-1]: 
                 #maps the function to the the distributable task_list 
                 future = executor.submit(self.api_call_func, (input_str, n))
                 output.append(future)
@@ -64,6 +67,7 @@ class spotify_playlist_maker(object):
         #unpacking
         return [item for sublist in lis for item in sublist if item]         
 
+    @deadline(120)
     def api_call_func(self, input_str_and_n_tuple):
         '''
         I: ('input string phrase', 2) 2 pertains the number of grams to search for 

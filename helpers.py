@@ -38,6 +38,27 @@ def make_verbose(fn):
         return fn(*args)
     return verbose
 
+def deadline(timeout, *args):
+    '''
+    I: an integer value, which represents the deadline for a function to execute in terms of seconds 
+    O: no return value, just raises an error TimedOutExc if the it's activated
+
+    place @deadline on top of the function
+    '''
+    def decorate(f):
+        def handler(signum, frame):
+            raise TimedOutExc()
+
+        def new_f(*args):
+            signal.signal(signal.SIGALRM, handler)
+            signal.alarm(timeout)
+            return f(*args)
+            signa.alarm(0)
+
+        new_f.__name__ = f.__name__
+        return new_f
+    return decorate
+
 def pop_from_str(in_str, phrase_str):
     return in_str.replace(phrase_str, '').replace('  ', ' ')
 
