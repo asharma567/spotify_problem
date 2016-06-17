@@ -1,6 +1,6 @@
 # spotify_problem
 
-I wrote in efforts to helpout a friend with an take-home from Spotify. I also thought it would be a great way to practice some techniques I wasn't familiar with at the time.
+I wrote in efforts to helpout a friend with a take-home from Spotify. I also thought it would be a great way to practice some techniques and further buildout my took_kit i.e. cool tools.
 
 Namely--
 - threadpooling
@@ -10,4 +10,4 @@ Namely--
 - memoizing
 etc...
 
-Now I'm trying solve the problem differently by applying the word-break algorithm 
+Now I'm trying solve the problem differently by applying the word-break algorithm. 
